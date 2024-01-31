@@ -8,21 +8,21 @@ describe('ConsoleDisplay', () => {
         console.log = consoleLog;
     });
 
-    it('no printed lines', () => {
+    it('will not print lines if not invoked', () => {
         const printedLines: Array<string> = [];
         const display = new ConsoleDisplay(spyAndFakeConsoleLog(printedLines));
         const contract = displayContractFor(display);
         contract.ensureNoPrintedLines(printedLines);
     });
 
-    it('one printed lines', () => {
+    it('will print one line', () => {
         const printedLines: Array<string> = [];
         const display = new ConsoleDisplay(spyAndFakeConsoleLog(printedLines));
         const contract = displayContractFor(display);
         contract.verifyOnePrintedLine(printedLines);
     });
 
-    it('multiple printed lines', () => {
+    it('will print multiple lines', () => {
         const printedLines: Array<string> = [];
         const display = new ConsoleDisplay(spyAndFakeConsoleLog(printedLines));
         const contract = displayContractFor(display);
