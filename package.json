@@ -1,0 +1,39 @@
+{
+  "name": "app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "test": "NODE_ENV=test jest --no-cache",
+    "build": "tsc",
+    "lint:staged": "lint-staged && git add app",
+    "start": "npm run build && node dist/source/main.js"
+  },
+  "devDependencies": {
+    "@types/deep-equal": "^1.0.4",
+    "@types/jest": "29.5.11",
+    "deep-equal": "^2.2.3",
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "jest": "29.7.0",
+    "lint-staged": "15.2.0",
+    "ts-jest": "29.1.2",
+    "typescript": "5.3.3"
+  },
+  "lint-staged": {
+    "linters": {
+      "*.{ts,tsx}": "tslint --fix"
+    }
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testMatch": [
+      "**/*Test.(ts|tsx)"
+    ]
+  }
+}
