@@ -1,36 +1,36 @@
 import ConsoleDisplay from '../source/infrastructure/ConsoleDisplay';
-import { displayContract } from './DisplayContract';
+import {displayContractFor} from './DisplayContractFor';
 
 describe('ConsoleDisplay', () => {
-  const consoleLog = console.log;
+    const consoleLog = console.log;
 
-  afterEach(() => {
-    console.log = consoleLog;
-  });
+    afterEach(() => {
+        console.log = consoleLog;
+    });
 
-  it('no printed lines', () => {
-    const printedLines: Array<string> = [];
-    const display = new ConsoleDisplay(stubConsoleLog(printedLines));
+    it('no printed lines', () => {
+        const printedLines: Array<string> = [];
+        const display = new ConsoleDisplay(stubConsoleLog(printedLines));
+        const contract = displayContractFor(display);
+        contract.ensureNoPrintedLines(printedLines);
+    });
 
-    displayContract.noPrintedLines(display, printedLines);
-  });
+    it('one printed lines', () => {
+        const printedLines: Array<string> = [];
+        const display = new ConsoleDisplay(stubConsoleLog(printedLines));
+        const contract = displayContractFor(display);
+        contract.verifyOnePrintedLine(printedLines);
+    });
 
-  it('one printed lines', () => {
-    const printedLines: Array<string> = [];
-    const display = new ConsoleDisplay(stubConsoleLog(printedLines));
+    it('multiple printed lines', () => {
+        const printedLines: Array<string> = [];
+        const display = new ConsoleDisplay(stubConsoleLog(printedLines));
+        const contract = displayContractFor(display);
+        contract.verifyMultiplePrintedLines(printedLines);
+    });
 
-    displayContract.onePrintedLine(display, printedLines);
-  });
-
-  it('multiple printed lines', () => {
-    const printedLines: Array<string> = [];
-    const display = new ConsoleDisplay(stubConsoleLog(printedLines));
-
-    displayContract.multiplePrintedLines(display, printedLines);
-  });
-
-  function stubConsoleLog(printedLines: Array<string>): Console {
-    console.log = (statement: string) => printedLines.push(statement);
-    return console;
-  }
+    function stubConsoleLog(printedLines: Array<string>): Console {
+        console.log = (statement: string) => printedLines.push(statement);
+        return console;
+    }
 });
