@@ -1,11 +1,20 @@
 import Account from '../source/domain/Account';
 import InMemoryDisplay from '../source/infrastructure/InMemoryDisplay';
+import DateProvider from '../source/domain/DateProvider';
 
 describe('AcceptanceTest', () => {
   it('simple use case', () => {
     const printedLines: Array<string> = [];
     const display = new InMemoryDisplay(printedLines);
-    const account = new Account(display);
+    // Mock DateProvider to return the expected dates in order
+    const mockDates = [
+      new Date(2012, 0, 10), // 10/01/2012
+      new Date(2012, 0, 13), // 13/01/2012
+      new Date(2012, 0, 14), // 14/01/2012
+    ];
+    let call = 0;
+    const mockDateProvider: DateProvider = { now: () => mockDates[call++] };
+    const account = new Account(display, mockDateProvider);
 
     account.deposit(1000);
     account.deposit(2000);
